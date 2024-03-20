@@ -89,10 +89,13 @@ livenessProbe:
   httpGet:
     path: /
     port: http
+  initialDelaySeconds: 15
 readinessProbe:
   httpGet:
     path: /
     port: http
+  initialDelaySeconds: 15
+
 
 autoscaling:
   enabled: true
