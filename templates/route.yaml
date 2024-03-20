@@ -8,7 +8,7 @@ metadata:
 spec:
   to:
     kind: Service
-    name: {{ include "hello-world-gitops-infra.name" . }}
+    name: {{ include "hello-world-gitops-infra.fullname" . }}
   port:
     targetPort: {{ tpl .Values.route.targetPort . }}
 {{- if .Values.route.tls.enabled }}
