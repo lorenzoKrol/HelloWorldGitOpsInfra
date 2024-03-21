@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+
   selector:
     matchLabels:
       {{- include "hello-world-gitops-infra.selectorLabels" . | nindent 6 }}
