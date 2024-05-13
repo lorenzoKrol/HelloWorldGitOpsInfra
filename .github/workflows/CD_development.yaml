@@ -4,7 +4,7 @@ on:
  pull_request:
     branches: ['main']
     paths:
-      - 'charts/development/*'
+      - charts/development/*
 
 permissions:
   contents: read
