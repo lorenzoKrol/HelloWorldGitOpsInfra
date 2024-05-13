@@ -22,6 +22,10 @@ jobs:
         with:
           python-version: '3.x'
           check-latest: true
+        
+      - name: output-branch
+        run: |
+          echo ${{ github.event.repository.default_branch }}
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.6.1
