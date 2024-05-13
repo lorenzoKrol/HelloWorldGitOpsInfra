@@ -27,18 +27,18 @@ serviceAccount:
   name: ""
 
 route:
-    enabled: true
-    targetPort: http
-    ## More information: https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html
-    tls:
-      enabled: false
-      termination: edge
-      insecureEdgeTerminationPolicy: Redirect
-      ## IMPORTANT: Do not check 'key' into git!
-      key:
-      caCertificate:
-      certificate:
-      destinationCACertificate:
+  enabled: true
+  targetPort: http
+  ## More information: https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html
+  tls:
+    enabled: false
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+    ## IMPORTANT: Do not check 'key' into git!
+    key:
+    caCertificate:
+    certificate:
+    destinationCACertificate:
 
 podAnnotations: {}
 podLabels: {}
@@ -96,7 +96,6 @@ readinessProbe:
     path: /
     port: http
   initialDelaySeconds: 1
-
 
 autoscaling:
   enabled: true
