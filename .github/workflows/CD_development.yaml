@@ -65,7 +65,7 @@ jobs:
       - name: Run Trivy vulnerability scanner in IaC mode
         uses: aquasecurity/trivy-action@master
         with:
-         scan-ref: 'charts/development'
+          scan-ref: 'charts/development'
           scan-type: 'config'
           format: 'sarif'
           output: 'trivy-results.sarif'
