@@ -10,8 +10,7 @@ spec:
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
 
-selector:
-       matchLabels:
+selector:matchLabels:
       {{- include "hello-world-gitops-infra.selectorLabels" . | nindent 6 }}
   template:
     metadata:
