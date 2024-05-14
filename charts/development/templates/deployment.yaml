@@ -4,7 +4,7 @@ metadata:
   name: {{ include "hello-world-gitops-infra.fullname" . }}
   labels:
     {{- include "hello-world-gitops-infra.labels" . | nindent 4 }}
-spec:false:
+spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
