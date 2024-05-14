@@ -2,13 +2,13 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ include "hello-world-gitops-infra.fullname" . }}
+  name: {{ include "hello-world-production.fullname" . }}
   labels:
-    {{- include "hello-world-gitops-infra.labels" . | nindent 4 }}
+    {{- include "hello-world-production.labels" . | nindent 4 }}
 spec:
   to:
     kind: Service
-    name: {{ include "hello-world-gitops-infra.fullname" . }}
+    name: {{ include "hello-world-production.fullname" . }}
   port:
     targetPort: {{ tpl .Values.route.targetPort . }}
 {{- if .Values.route.tls.enabled }}

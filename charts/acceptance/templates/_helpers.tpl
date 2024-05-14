@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "hello-world-gitops-infra.name" -}}
+{{- define "hello-world-acceptance.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "hello-world-gitops-infra.fullname" -}}
+{{- define "hello-world-acceptance.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "hello-world-gitops-infra.chart" -}}
+{{- define "hello-world-acceptance.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "hello-world-gitops-infra.labels" -}}
-helm.sh/chart: {{ include "hello-world-gitops-infra.chart" . }}
-{{ include "hello-world-gitops-infra.selectorLabels" . }}
+{{- define "hello-world-acceptance.labels" -}}
+helm.sh/chart: {{ include "hello-world-acceptance.chart" . }}
+{{ include "hello-world-acceptance.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "hello-world-gitops-infra.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "hello-world-gitops-infra.name" . }}
+{{- define "hello-world-acceptance.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "hello-world-acceptance.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "hello-world-gitops-infra.serviceAccountName" -}}
+{{- define "hello-world-acceptance.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "hello-world-gitops-infra.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "hello-world-acceptance.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

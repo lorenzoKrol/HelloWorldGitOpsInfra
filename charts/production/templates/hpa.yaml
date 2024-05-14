@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "hello-world-gitops-infra.fullname" . }}
+  name: {{ include "hello-world-production.fullname" . }}
   labels:
-    {{- include "hello-world-gitops-infra.labels" . | nindent 4 }}
+    {{- include "hello-world-production.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "hello-world-gitops-infra.fullname" . }}
+    name: {{ include "hello-world-production.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

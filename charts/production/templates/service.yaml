@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "hello-world-gitops-infra.fullname" . }}
+  name: {{ include "hello-world-production.fullname" . }}
   labels:
-    {{- include "hello-world-gitops-infra.labels" . | nindent 4 }}
+    {{- include "hello-world-production.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "hello-world-gitops-infra.selectorLabels" . | nindent 4 }}
+    {{- include "hello-world-production.selectorLabels" . | nindent 4 }}

@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hello-world-gitops-infra.fullname" . }}
+  name: {{ include "hello-world-acceptance.fullname" . }}
   labels:
-    {{- include "hello-world-gitops-infra.labels" . | nindent 4 }}
+    {{- include "hello-world-acceptance.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -12,7 +12,7 @@ spec:
 
   selector:
     matchLabels:
-      {{- include "hello-world-gitops-infra.selectorLabels" . | nindent 6 }}
+      {{- include "hello-world-acceptance.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -20,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "hello-world-gitops-infra.labels" . | nindent 8 }}
+        {{- include "hello-world-acceptance.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -29,7 +29,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "hello-world-gitops-infra.serviceAccountName" . }}
+      serviceAccountName: {{ include "hello-world-acceptance.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
