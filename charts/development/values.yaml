@@ -9,7 +9,7 @@ image:
   repository: lordflenzo/hello-world-flask
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-tag: "3.0.25"
+tag: "3.0.26"
 
 imagePullSecrets: []
 nameOverride: ""
