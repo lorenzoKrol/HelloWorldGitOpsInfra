@@ -1,6 +1,10 @@
 name: CD workflow
 
 on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'charts/development/**'
  pull_request:
     paths:
       - 'charts/development/**'
