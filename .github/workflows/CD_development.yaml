@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'charts/development/**'
- pull_request:
+  pull_request:
     paths:
       - 'charts/development/**'
 
