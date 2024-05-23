@@ -1,0 +1,16 @@
+name: Pluto helm deprecation testing
+description: Pluto helm deprecation testing
+inputs:
+  environment:
+    description: 'environment'
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: Download Pluto
+    uses: FairwindsOps/pluto/github-action@master
+
+  - name: Use pluto
+    shell: bash
+    run: |
+      pluto detect-files -d charts/${{ inputs.environment }}
