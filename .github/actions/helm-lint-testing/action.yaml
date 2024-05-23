@@ -29,12 +29,3 @@ runs:
       if: steps.list-changed.outputs.changed == 'true'
       shell: bash
       run: ct lint --config .github/chart-testing-config.yaml
-
-    # - name: Create kind cluster
-    #   if: steps.list-changed.outputs.changed == 'true'
-    #   uses: helm/kind-action@v1.8.0
-
-    # - name: Run chart-testing (install)
-    #   if: steps.list-changed.outputs.changed == 'true'
-    #   shell: bash
-    #   run: ct install --config .github/chart-testing-config.yaml
