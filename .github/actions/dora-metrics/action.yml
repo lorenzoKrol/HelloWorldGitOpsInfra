@@ -1,6 +1,12 @@
 name: Generate Dora metrics
 description: Generate Dora metrics
 inputs:
+  github_application_repo_commit_username:
+    description: "The username of the account you want to commit with to the infrastructure repository"
+    required: true
+  github_application_repo_commit_user_email:
+    description: "The email of the account you want to commit with to the infrastructure repository"
+    required: true
   github_access_token:
     description: "authorization token"
     required: true
@@ -30,8 +36,8 @@ runs:
     - name: 💻 Commit files
       shell: bash
       run: |
-        git config --local user.email github-actions[bot]
-        git config --local user.name github-actions[bot]@users.noreply.github.com
+        git config --local user.email ${{inputs.github_application_repo_commit_user_email}}
+        git config --local user.name ${{inputs.github_application_repo_commit_username}}
         git add .
         git commit -m "updated metrics insights [skip ci]"
 
