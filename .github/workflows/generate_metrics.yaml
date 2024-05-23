@@ -1,0 +1,18 @@
+name: CD workflow
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  calculate-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate metrics
+        uses: ./.github/actions/dora-metrics
+        with:
+          github_application_repo_commit_username: lorenzoKrol
+          github_application_repo_commit_user_email: lorenzokrol2000@gmail.com
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{github.ref_name}}
