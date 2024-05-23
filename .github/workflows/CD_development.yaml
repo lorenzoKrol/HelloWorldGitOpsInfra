@@ -47,11 +47,10 @@ jobs:
 
   calculate-metrics:
     runs-on: ubuntu-latest
-    environment: development
     steps:
       - uses: actions/checkout@v4
-      - name: Update image tag in infrastructure repository
+      - name: Generate metrics
         uses: ./.github/actions/dora-metrics
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref_name }}
+          branch: main
