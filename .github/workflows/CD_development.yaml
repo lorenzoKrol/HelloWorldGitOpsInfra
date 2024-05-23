@@ -44,3 +44,14 @@ jobs:
       - uses: ./.github/actions/pluto-deprecation-testing
         with:
           environment: "development"
+
+  calculate-metrics:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update image tag in infrastructure repository
+        uses: ./.github/actions/dora-metrics
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref_name }}
