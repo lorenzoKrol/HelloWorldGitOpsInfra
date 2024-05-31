@@ -101,3 +101,9 @@ releases:
     bugs: 0
     hotfixes: 0
     is_hotfix: false
+  - number: 18
+    date: 31-05-2024 01:27 PM
+    features: 0
+    bugs: 0
+    hotfixes: 0
+    is_hotfix: false
