@@ -131,3 +131,9 @@ releases:
     bugs: 0
     hotfixes: 0
     is_hotfix: false
+  - number: 23
+    date: 31-05-2024 02:58 PM
+    features: 0
+    bugs: 0
+    hotfixes: 0
+    is_hotfix: false
