@@ -6,7 +6,7 @@ replicaCount: 2
 revisionHistoryLimit: 0
 
 image:
-  repository: lordflenzo/hello-world-flask
+  repository: ghcr.io/lorenzokrol/hello-world-flask
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 tag: "4.0.12"
