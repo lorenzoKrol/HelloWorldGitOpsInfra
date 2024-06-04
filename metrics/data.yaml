@@ -1,8 +1,8 @@
-total_releases: 75
+total_releases: 76
 total_feature_releases: 0
 total_bugfix_releases: 0
 total_hotfix_releases: 0
-total_releases_without_bugs: 75
+total_releases_without_bugs: 76
 average_features_per_release: 0.0
 average_bugs_per_release: 0.0
 average_hotfixes_per_release: 0.0
