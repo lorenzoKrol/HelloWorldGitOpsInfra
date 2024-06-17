@@ -13,4 +13,4 @@ jobs:
 
       - name: Perform some actions
         run: | 
-          echo "ArgoCD sync status: ${{ github.event.client_payload.sync_status }}"
+          echo "ArgoCD sync status ${{ github.event.client_payload.app_name }}: ${{ github.event.client_payload.sync_status }}"
