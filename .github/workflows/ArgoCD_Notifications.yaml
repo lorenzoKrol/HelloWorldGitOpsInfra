@@ -1,0 +1,16 @@
+name: ArgoCD Status
+
+on:
+  repository_dispatch:
+    types: [argo-cd-sync]
+
+jobs:
+  argo-cd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Perform some actions
+        run: | 
+          echo "ArgoCD sync status:"
