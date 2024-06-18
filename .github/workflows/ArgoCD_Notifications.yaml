@@ -11,6 +11,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Perform some actions
+      - name: ArgoCD status
         run: | 
-          echo "ArgoCD sync status ${{ github.event.client_payload.app_name }}: ${{ github.event.client_payload.sync_status }}"
+          echo "ArgoCD ${{ github.event.client_payload.event }} status ${{ github.event.client_payload.app_name }}: ${{ github.event.client_payload.sync_status }}"
