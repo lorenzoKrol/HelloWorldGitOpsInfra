@@ -1,0 +1,176 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: argocd-notifications-cm
+  namespace: openshift-gitops
+  uid: c8bfe7b3-1faa-4493-98a0-e92cc13e5321
+  resourceVersion: '2479190'
+  creationTimestamp: '2024-06-17T11:10:03Z'
+  labels:
+    app.kubernetes.io/managed-by: openshift-gitops
+    app.kubernetes.io/name: argocd-notifications-cm
+    app.kubernetes.io/part-of: argocd
+  ownerReferences:
+    - apiVersion: argoproj.io/v1beta1
+      kind: ArgoCD
+      name: openshift-gitops
+      uid: 5d6c5792-2f4a-41eb-9916-3a3c2d826ccf
+      controller: true
+      blockOwnerDeletion: true
+  managedFields:
+    - manager: manager
+      operation: Update
+      apiVersion: v1
+      time: '2024-06-17T11:10:03Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data': {}
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:app.kubernetes.io/name': {}
+            'f:app.kubernetes.io/part-of': {}
+          'f:ownerReferences':
+            .: {}
+            'k:{"uid":"5d6c5792-2f4a-41eb-9916-3a3c2d826ccf"}': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2024-06-18T07:51:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          'f:template.application-deploy': {}
+          'f:trigger.on-created': {}
+          'f:service.webhook.github': {}
+          'f:trigger.on-deployed': {}
+          'f:template.application-deletion': {}
+          'f:trigger.on-sync-failed': {}
+          'f:template.application-created': {}
+          'f:trigger.on-sync-running': {}
+          'f:trigger.on-sync-succeeded': {}
+          'f:trigger.on-deleted': {}
+          'f:template.application-sync': {}
+          'f:template.application-health': {}
+          'f:trigger.on-health-degraded': {}
+          'f:trigger.on-sync-status-unknown': {}
+data:
+  trigger.on-deleted: |-
+    - description: Application is deleted.
+      oncePer: app.metadata.name
+      send:
+        - application-deletion
+      when: app.metadata.deletionTimestamp != nil
+  trigger.on-sync-running: |-
+    - description: Application is being synced
+      send:
+        - application-sync
+      when: app.status.operationState.phase in ['Running']
+  trigger.on-sync-succeeded: |-
+    - description: Application syncing has succeeded
+      send:
+        - application-sync
+      when: app.status.operationState.phase in ['Succeeded']
+  trigger.on-health-degraded: |-
+    - description: Application has degraded
+      send:
+        - application-health
+      when: app.status.health.status == 'Degraded'
+  trigger.on-sync-status-unknown: |-
+    - description: Application status is 'Unknown'
+      send:
+        - application-sync
+      when: app.status.sync.status == 'Unknown'
+  template.application-sync: |
+    webhook:
+      github:
+        method: POST
+        body: |
+          {
+            "event_type": "argo-cd-sync",
+            "client_payload": {
+              "event": "Sync",
+              "app_name": "{{ .app.metadata.name }}",
+              "sync_status": "{{ .app.status.operationState.phase }}",
+              "commit_sha": "{{ .app.status.sync.revision }}"
+            }
+          }
+  template.application-health: |
+    webhook:
+      github:
+        method: POST
+        body: |
+          {
+            "event_type": "argo-cd-sync",
+            "client_payload": {
+              "event": "Health",
+              "app_name": "{{ .app.metadata.name }}",
+              "sync_status": "{{ .app.status.health.status }}",
+              "commit_sha": "{{ .app.status.sync.revision }}"
+            }
+          }
+  trigger.on-created: |-
+    - description: Application is created.
+      oncePer: app.metadata.name
+      send:
+        - application-created
+      when: "true"
+  service.webhook.github: |
+    url: https://api.github.com/repos/lorenzoKrol/HelloWorldGitOpsInfra/dispatches
+    headers:
+      - name: Authorization
+        value: Bearer $github-token
+  trigger.on-sync-failed: |-
+    - description: Application syncing has failed
+      send:
+        - application-sync
+      when: app.status.operationState.phase in ['Error', 'Failed']
+  template.application-created: |
+    webhook:
+      github:
+        method: POST
+        body: |
+          {
+            "event_type": "argo-cd-sync",
+            "client_payload": {
+              "event": "Application",
+              "app_name": "{{ .app.metadata.name }}",
+              "sync_status": "Created",
+              "commit_sha": "{{ .app.status.sync.revision }}"
+            }
+          }
+  template.application-deploy: |
+    webhook:
+      github:
+        method: POST
+        body: |
+          {
+            "event_type": "argo-cd-sync",
+            "client_payload": {
+              "event": "Deploy",
+              "app_name": "{{ .app.metadata.name }}",
+              "sync_status": "{{ .app.status.health.status }}",
+              "commit_sha": "{{ .app.status.sync.revision }}"
+            }
+          }
+  trigger.on-deployed: |-
+    - description: Application is synced and healthy. Triggered once per commit.
+      oncePer: app.status.operationState.syncResult.revision
+      send:
+        - application-deploy
+      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+  template.application-deletion: |
+    webhook:
+      github:
+        method: POST
+        body: |
+          {
+            "event_type": "argo-cd-sync",
+            "client_payload": {
+              "event": "Application",
+              "app_name": "{{ .app.metadata.name }}",
+              "sync_status": "Deleted",
+              "commit_sha": "{{ .app.status.sync.revision }}"
+            }
+          }
